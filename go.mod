@@ -1,3 +1,3 @@
-module rsp9u/go-xlsdiag
+module rsp9u/go-xlsshape
 
 go 1.12
