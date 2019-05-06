@@ -11,10 +11,19 @@ type Worksheet struct {
 	XMLName       xml.Name `xml:"worksheet"`
 	Namespace     string   `xml:"xmlns,attr"`
 	RelNameSpace  string   `xml:"xmlns:r,attr"`
+	SheetFormat   SheetFormat
 	SheetData     SheetData
 	DrawingRels   []DrawingRel
 	path          string
 	relationships *Relationships
+}
+
+// SheetFormat is a struct.
+type SheetFormat struct {
+	XMLName            xml.Name `xml:"sheetFormatPr"`
+	DefaultColumnWidth string   `xml:"defaultColWidth,attr,omitempty"`
+	DefaultRowHeight   string   `xml:"defaultRowHeight,attr,omitempty"`
+	CustomHeight       string   `xml:"customHeight,attr,omitempty"`
 }
 
 // SheetData is a struct.
@@ -54,9 +63,16 @@ func (ws *Worksheet) Content() string {
 	return content
 }
 
+// SetDefaultCellSize sets the default size of cell.
+func (ws *Worksheet) SetDefaultCellSize(w, h string) {
+	ws.SheetFormat.DefaultColumnWidth = w
+	ws.SheetFormat.DefaultRowHeight = h
+	ws.SheetFormat.CustomHeight = "1"
+}
+
 // AddDrawing adds a drawing relationship into this.
-func (ws *Worksheet) AddDrawing(id string, target Part) {
-	rid := "rId" + strconv.Itoa(len(ws.DrawingRels))
+func (ws *Worksheet) AddDrawing(target Part) {
+	rid := "rId" + strconv.Itoa(len(ws.DrawingRels)+1)
 	ws.DrawingRels = append(ws.DrawingRels, DrawingRel{ID: rid})
 	ws.relationships.Add(Relationship{ID: rid, Type: typeRelationshipsDrawing, Target: TargetPath(ws, target)})
 }
