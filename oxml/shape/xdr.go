@@ -6,17 +6,17 @@ import (
 
 // XdrShape is struct.
 type XdrShape struct {
-	XMLName      xml.Name `xml:"xdr:sp"`
-	NvProperties XdrNonVisualShapeProperties
-	Properties   XdrShapeProperties
-	TextBody     *XdrTextBody `xml:",omitempty"`
+	XMLName      xml.Name                     `xml:"xdr:sp"`
+	NvProperties *XdrNonVisualShapeProperties `xml:",omitempty"`
+	Properties   *XdrShapeProperties          `xml:",omitempty"`
+	TextBody     *XdrTextBody                 `xml:",omitempty"`
 }
 
 // XdrNonVisualShapeProperties is struct.
 type XdrNonVisualShapeProperties struct {
-	XMLName         xml.Name `xml:"xdr:nvSpPr"`
-	Properties      XdrNonVisualProperties
-	ShapeProperties string `xml:"xdr:cNvSpPr"`
+	XMLName         xml.Name                `xml:"xdr:nvSpPr"`
+	Properties      *XdrNonVisualProperties `xml:",omitempty"`
+	ShapeProperties string                  `xml:"xdr:cNvSpPr"`
 }
 
 // XdrNonVisualProperties is struct.
@@ -28,11 +28,11 @@ type XdrNonVisualProperties struct {
 
 // XdrShapeProperties is struct.
 type XdrShapeProperties struct {
-	XMLName    xml.Name   `xml:"xdr:spPr"`
-	PresetGeom *Geom      `xml:",omitempty"`
-	Fill       *SolidFill `xml:",omitempty"`
-	NoFill     *NoFill    `xml:",omitempty"`
-	Line       *Line      `xml:",omitempty"`
+	XMLName    xml.Name        `xml:"xdr:spPr"`
+	PresetGeom *Geom           `xml:",omitempty"`
+	Fill       *SolidFill      `xml:",omitempty"`
+	NoFill     *NoFill         `xml:",omitempty"`
+	Line       *LineProperties `xml:",omitempty"`
 }
 
 // XdrTextBody is struct.

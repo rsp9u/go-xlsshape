@@ -28,10 +28,24 @@ type NoFill struct {
 	XMLName xml.Name `xml:"a:noFill"`
 }
 
-// Line is a line property around the shape.
-type Line struct {
-	XMLName xml.Name   `xml:"a:ln"`
-	Fill    *SolidFill `xml:",omitempty"`
+// LineProperties is a line property around the shape.
+type LineProperties struct {
+	XMLName xml.Name    `xml:"a:ln"`
+	Fill    *SolidFill  `xml:",omitempty"`
+	Dash    *PresetDash `xml:",omitempty"`
+	Head    *LineEnd    `xml:"a:headEnd,omitempty"`
+	Tail    *LineEnd    `xml:"a:tailEnd,omitempty"`
+}
+
+// PresetDash is a preset type for line dash.
+type PresetDash struct {
+	XMLName xml.Name `xml:"a:prstDash"`
+	Value   string   `xml:"val,attr"`
+}
+
+// LineEnd is a type of terminal shape of the line.
+type LineEnd struct {
+	Type string `xml:"type,attr"`
 }
 
 // TextBodyProperties is a set of properties of the text box.

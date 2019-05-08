@@ -11,6 +11,8 @@ type Rectangle struct {
 	text, lang    string
 	fillColor     string
 	lineColor     string
+	noFill        bool
+	noLine        bool
 }
 
 // NewRectangle creates a rectangle.
@@ -19,6 +21,8 @@ func NewRectangle() *Rectangle {
 		lang:      "en-US",
 		fillColor: "FFFFFF",
 		lineColor: "000000",
+		noFill:    false,
+		noLine:    false,
 	}
 }
 
@@ -50,8 +54,25 @@ func (r *Rectangle) SetLineColor(c string) {
 	r.lineColor = c
 }
 
+// SetNoFill sets the no-fill flag.
+func (r *Rectangle) SetNoFill(f bool) {
+	r.noFill = f
+}
+
+// SetNoLine sets the no-line flag.
+func (r *Rectangle) SetNoLine(f bool) {
+	r.noLine = f
+}
+
 // MarshalXML generates the xml element from this and puts it to the encoder.
 func (r *Rectangle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	var fill, linefill *SolidFill
+	if !r.noFill {
+		fill = &SolidFill{Color: &RgbColor{Value: r.fillColor}}
+	}
+	if !r.noLine {
+		linefill = &SolidFill{Color: &RgbColor{Value: r.lineColor}}
+	}
 	xr := struct {
 		From       *CellAnchorFrom
 		To         *CellAnchorTo
@@ -61,13 +82,13 @@ func (r *Rectangle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		From: NewCellAnchorFrom(r.left, r.top),
 		To:   NewCellAnchorTo(r.left+r.width, r.top+r.height),
 		Shape: XdrShape{
-			NvProperties: XdrNonVisualShapeProperties{
-				Properties: XdrNonVisualProperties{ID: "1"},
+			NvProperties: &XdrNonVisualShapeProperties{
+				Properties: &XdrNonVisualProperties{ID: "1"},
 			},
-			Properties: XdrShapeProperties{
+			Properties: &XdrShapeProperties{
 				PresetGeom: &Geom{Preset: "rect"},
-				Fill:       &SolidFill{Color: &RgbColor{Value: r.fillColor}},
-				Line:       &Line{Fill: &SolidFill{Color: &RgbColor{Value: r.lineColor}}},
+				Fill:       fill,
+				Line:       &LineProperties{Fill: linefill},
 			},
 			TextBody: &XdrTextBody{
 				Properties: &TextBodyProperties{
