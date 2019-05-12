@@ -13,6 +13,7 @@ type Rectangle struct {
 	lineColor     string
 	noFill        bool
 	noLine        bool
+	geoType       string
 }
 
 // NewRectangle creates a rectangle.
@@ -23,6 +24,7 @@ func NewRectangle() *Rectangle {
 		lineColor: "000000",
 		noFill:    false,
 		noLine:    false,
+		geoType:   "rect",
 	}
 }
 
@@ -64,6 +66,11 @@ func (r *Rectangle) SetNoLine(f bool) {
 	r.noLine = f
 }
 
+// SetGeoType sets the type of geometory.
+func (r *Rectangle) SetGeoType(t string) {
+	r.geoType = t
+}
+
 // MarshalXML generates the xml element from this and puts it to the encoder.
 func (r *Rectangle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	var fill, linefill *SolidFill
@@ -86,7 +93,7 @@ func (r *Rectangle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 				Properties: &XdrNonVisualProperties{ID: "1"},
 			},
 			Properties: &XdrShapeProperties{
-				PresetGeom: &Geom{Preset: "rect"},
+				PresetGeom: &Geom{Preset: r.geoType},
 				Fill:       fill,
 				Line:       &LineProperties{Fill: linefill},
 			},
