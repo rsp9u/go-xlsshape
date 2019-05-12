@@ -14,6 +14,7 @@ type Rectangle struct {
 	noFill        bool
 	noLine        bool
 	geoType       string
+	wrapType      string
 }
 
 // NewRectangle creates a rectangle.
@@ -25,6 +26,7 @@ func NewRectangle() *Rectangle {
 		noFill:    false,
 		noLine:    false,
 		geoType:   "rect",
+		wrapType:  "none",
 	}
 }
 
@@ -71,6 +73,11 @@ func (r *Rectangle) SetGeoType(t string) {
 	r.geoType = t
 }
 
+// SetWrapType sets the type of text wrapping.
+func (r *Rectangle) SetWrapType(t string) {
+	r.wrapType = t
+}
+
 // MarshalXML generates the xml element from this and puts it to the encoder.
 func (r *Rectangle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	var fill, linefill *SolidFill
@@ -101,7 +108,7 @@ func (r *Rectangle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 				Properties: &TextBodyProperties{
 					VerticalOverflow:   "clip",
 					HorizontalOverflow: "clip",
-					Wrap:               "none",
+					Wrap:               r.wrapType,
 					RtlCol:             "0",
 					Anchor:             "t",
 				},
