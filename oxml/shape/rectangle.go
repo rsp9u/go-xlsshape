@@ -2,6 +2,7 @@ package shape
 
 import (
 	"encoding/xml"
+	"strconv"
 )
 
 // Rectangle is a kind of shapes.
@@ -15,6 +16,7 @@ type Rectangle struct {
 	noLine        bool
 	geoType       string
 	wrapType      string
+	fontSize      int
 }
 
 // NewRectangle creates a rectangle.
@@ -27,6 +29,7 @@ func NewRectangle() *Rectangle {
 		noLine:    false,
 		geoType:   "rect",
 		wrapType:  "none",
+		fontSize:  1100,
 	}
 }
 
@@ -78,6 +81,11 @@ func (r *Rectangle) SetWrapType(t string) {
 	r.wrapType = t
 }
 
+// SetFontSize sets the text font size with one-hundredth of the given numeric value.
+func (r *Rectangle) SetFontSize(size int) {
+	r.fontSize = size
+}
+
 // MarshalXML generates the xml element from this and puts it to the encoder.
 func (r *Rectangle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	var fill, linefill *SolidFill
@@ -116,7 +124,7 @@ func (r *Rectangle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 					Kumimoji: "1",
 					Lang:     r.lang,
 					AltLang:  "en-US",
-					Size:     "1100",
+					Size:     strconv.Itoa(r.fontSize),
 				},
 				Text: r.text,
 			},
