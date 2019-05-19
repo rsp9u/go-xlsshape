@@ -37,9 +37,10 @@ type XdrShapeProperties struct {
 
 // XdrTextBody is struct.
 type XdrTextBody struct {
-	XMLName     xml.Name            `xml:"xdr:txBody"`
-	Properties  *TextBodyProperties `xml:",omitempty"`
-	ListStyle   string              `xml:"a:lstStyle"`
-	RProperties *TextProperties     `xml:"a:p>a:r>a:rPr"`
-	Text        string              `xml:"a:p>a:r>a:t"`
+	XMLName     xml.Name                  `xml:"xdr:txBody"`
+	Properties  *TextBodyProperties       `xml:",omitempty"`
+	ListStyle   string                    `xml:"a:lstStyle"`
+	PProperties *TextParticularProperties `xml:"a:p>a:pPr"`
+	RProperties *TextRunProperties        `xml:"a:p>a:r>a:rPr"`
+	Text        string                    `xml:"a:p>a:r>a:t"`
 }

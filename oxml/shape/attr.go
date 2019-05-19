@@ -59,8 +59,14 @@ type TextBodyProperties struct {
 	AutoFit            *struct{} `xml:"a:spAutoFit,omitempty"`
 }
 
-// TextProperties is a set of properties for the text.
-type TextProperties struct {
+// TextParticularProperties is a set of the run particular properties for the text.
+type TextParticularProperties struct {
+	XMLName xml.Name `xml:"a:pPr"`
+	Align   string   `xml:"algn,attr"`
+}
+
+// TextRunProperties is a set of the run level properties for the text.
+type TextRunProperties struct {
 	XMLName  xml.Name `xml:"a:rPr"`
 	Kumimoji string   `xml:"kumimoji,attr"`
 	Lang     string   `xml:"lang,attr"`

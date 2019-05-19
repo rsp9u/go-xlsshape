@@ -12,6 +12,8 @@ func main() {
 	rect.SetLeftTop(20, 20)
 	rect.SetSize(300, 150)
 	rect.SetText("A shape with text", "en-US")
+	rect.SetHAlign("ctr")
+	rect.SetVAlign("ctr")
 	ss.AddShape(rect)
 
 	rect2 := shape.NewRectangle()

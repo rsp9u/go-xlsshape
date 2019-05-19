@@ -17,6 +17,8 @@ type Rectangle struct {
 	geoType       string
 	wrapType      string
 	fontSize      int
+	hAlign        string
+	vAlign        string
 }
 
 // NewRectangle creates a rectangle.
@@ -30,6 +32,8 @@ func NewRectangle() *Rectangle {
 		geoType:   "rect",
 		wrapType:  "none",
 		fontSize:  1100,
+		hAlign:    "l",
+		vAlign:    "t",
 	}
 }
 
@@ -86,6 +90,24 @@ func (r *Rectangle) SetFontSize(size int) {
 	r.fontSize = size
 }
 
+// SetHAlign sets the horizontal alignment of text.
+//
+// If align == "l", aligns the text to the left
+// If align == "r", aligns the text to the right
+// If align == "ctr", centers the text
+func (r *Rectangle) SetHAlign(align string) {
+	r.hAlign = align
+}
+
+// SetVAlign sets the vertical alignment of text.
+//
+// If align == "t", aligns the text to the top
+// If align == "b", aligns the text to the bottom
+// If align == "ctr", centers the text
+func (r *Rectangle) SetVAlign(align string) {
+	r.vAlign = align
+}
+
 // MarshalXML generates the xml element from this and puts it to the encoder.
 func (r *Rectangle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	var fill, linefill *SolidFill
@@ -118,9 +140,12 @@ func (r *Rectangle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 					HorizontalOverflow: "clip",
 					Wrap:               r.wrapType,
 					RtlCol:             "0",
-					Anchor:             "t",
+					Anchor:             r.vAlign,
 				},
-				RProperties: &TextProperties{
+				PProperties: &TextParticularProperties{
+					Align: r.hAlign,
+				},
+				RProperties: &TextRunProperties{
 					Kumimoji: "1",
 					Lang:     r.lang,
 					AltLang:  "en-US",
