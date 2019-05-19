@@ -23,22 +23,22 @@ func main() {
 	ss.AddShape(rect2)
 
 	line1 := shape.NewLine()
-	line1.SetLeftTop(20, 300)
-	line1.SetRightBottom(300, 300)
+	line1.SetStartPos(20, 300)
+	line1.SetEndPos(300, 300)
 	line1.SetTailType("arrow")
 	ss.AddShape(line1)
 
 	line2 := shape.NewLine()
-	line2.SetLeftTop(20, 340)
-	line2.SetRightBottom(300, 340)
+	line2.SetStartPos(20, 340)
+	line2.SetEndPos(300, 340)
 	line2.SetDashType("dash")
 	line2.SetHeadType("triangle")
 	line2.SetTailType("stealth")
 	ss.AddShape(line2)
 
 	line3 := shape.NewLine()
-	line3.SetLeftTop(20, 380)
-	line3.SetRightBottom(300, 380)
+	line3.SetStartPos(20, 380)
+	line3.SetEndPos(300, 380)
 	line3.SetDashType("sysDot")
 	ss.AddShape(line3)
 

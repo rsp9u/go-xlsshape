@@ -6,12 +6,12 @@ import (
 
 // Line is a kind of shapes.
 type Line struct {
-	left, top     int
-	right, bottom int
-	dashType      string
-	headType      string
-	tailType      string
-	color         string
+	startX, startY int
+	endX, endY     int
+	dashType       string
+	headType       string
+	tailType       string
+	color          string
 }
 
 // NewLine creates a rectangle.
@@ -24,16 +24,16 @@ func NewLine() *Line {
 	}
 }
 
-// SetLeftTop sets top and left of this.
-func (ln *Line) SetLeftTop(l, t int) {
-	ln.left = l
-	ln.top = t
+// SetStartPos sets the position of the start of this.
+func (ln *Line) SetStartPos(x, y int) {
+	ln.startX = x
+	ln.startY = y
 }
 
-// SetRightBottom sets bottom and right of this.
-func (ln *Line) SetRightBottom(r, b int) {
-	ln.right = r
-	ln.bottom = b
+// SetEndPos sets the position of the end of this.
+func (ln *Line) SetEndPos(x, y int) {
+	ln.endX = x
+	ln.endY = y
 }
 
 // SetDashType sets the type of line dash of this.
@@ -78,8 +78,8 @@ func (ln *Line) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		Shape      XdrShape
 		ClientData string `xml:"xdr:clientData"`
 	}{
-		From: NewCellAnchorFrom(ln.left, ln.top),
-		To:   NewCellAnchorTo(ln.right, ln.bottom),
+		From: NewCellAnchorFrom(ln.startX, ln.startY),
+		To:   NewCellAnchorTo(ln.endX, ln.endY),
 		Shape: XdrShape{
 			NvProperties: &XdrNonVisualShapeProperties{
 				Properties: &XdrNonVisualProperties{ID: "1"},
