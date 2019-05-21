@@ -4,6 +4,13 @@ import (
 	"encoding/xml"
 )
 
+// XForm specifies the transform to be applied to the corresponding graphic frame
+type XForm struct {
+	XMLName xml.Name `xml:"a:xfrm"`
+	FlipH   string   `xml:"flipH,attr,omitempty"`
+	FlipV   string   `xml:"flipV,attr,omitempty"`
+}
+
 // RgbColor is a struct to be specified a color by rgb hex values like "FFFF00".
 type RgbColor struct {
 	XMLName xml.Name `xml:"a:srgbClr"`

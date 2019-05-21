@@ -44,5 +44,11 @@ func main() {
 	line3.SetDashType("sysDot")
 	ss.AddShape(line3)
 
+	line4 := shape.NewLine()
+	line4.SetStartPos(300, 460)
+	line4.SetEndPos(20, 420)
+	line4.SetTailType("arrow")
+	ss.AddShape(line4)
+
 	ss.Dump("example1.xlsx")
 }

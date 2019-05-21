@@ -29,6 +29,7 @@ type XdrNonVisualProperties struct {
 // XdrShapeProperties is struct.
 type XdrShapeProperties struct {
 	XMLName    xml.Name        `xml:"xdr:spPr"`
+	XForm      *XForm          `xml:",omitempty"`
 	PresetGeom *Geom           `xml:",omitempty"`
 	Fill       *SolidFill      `xml:",omitempty"`
 	NoFill     *NoFill         `xml:",omitempty"`
