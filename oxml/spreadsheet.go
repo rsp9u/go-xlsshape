@@ -83,3 +83,9 @@ func (ss *Spreadsheet) Dump(filename string) {
 func (ss *Spreadsheet) AddShape(s shape.Shape) {
 	ss.drawing.AddShape(s)
 }
+
+// UnshiftShape adds a shape into the drawing collection of this spreadsheet.
+// The given shape will be drawn under the existing shapes.
+func (ss *Spreadsheet) UnshiftShape(s shape.Shape) {
+	ss.drawing.UnshiftShape(s)
+}

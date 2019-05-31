@@ -43,3 +43,8 @@ func (d *Drawing) Content() string {
 func (d *Drawing) AddShape(s shape.Shape) {
 	d.Shapes = append(d.Shapes, s)
 }
+
+// UnshiftShape inserts a shape into the head of shape list.
+func (d *Drawing) UnshiftShape(s shape.Shape) {
+	d.Shapes, d.Shapes[0] = append(d.Shapes[0:1], d.Shapes[0:]...), s
+}
